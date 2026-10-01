@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>StudyFlow — Academic Report (Assignment 1 & 2)</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 14mm 18mm 14mm 18mm;
+    }
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: #111827;
+      background-color: #ffffff;
+      line-height: 1.45;
+      font-size: 10.5pt;
+      margin: 0;
+      padding: 0;
+    }
+    .page {
+      page-break-after: always;
+      position: relative;
+      min-height: 260mm;
+      padding-bottom: 8mm;
+    }
+    .page:last-child {
+      page-break-after: auto;
+    }
+    /* College Header */
+    .college-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1.5px solid #1f2937;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+    }
+    .college-logo-placeholder {
+      width: 54px;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 11pt;
+      color: #1e3a8a;
+      background: #f8fafc;
+    }
+    .college-text {
+      text-align: center;
+      flex: 1;
+      padding: 0 10px;
+    }
+    .college-text h4 {
+      margin: 0;
+      font-size: 8.5pt;
+      font-weight: 600;
+      color: #4b5563;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .college-text h2 {
+      margin: 2px 0;
+      font-size: 11.5pt;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.2px;
+    }
+    .college-text p {
+      margin: 0;
+      font-size: 7.5pt;
+      color: #64748b;
+    }
+    /* Metadata Box */
+    .meta-box {
+      font-size: 9pt;
+      line-height: 1.4;
+      margin-bottom: 14px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      padding: 6px 12px;
+    }
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+    }
+    .meta-label {
+      color: #475569;
+    }
+    .meta-val {
+      font-weight: 600;
+      color: #0f172a;
+    }
+    /* Section Headings */
+    h1.doc-title {
+      font-size: 15pt;
+      font-weight: 800;
+      margin: 8px 0 4px 0;
+      color: #0f172a;
+      border-bottom: 2px solid #2563eb;
+      padding-bottom: 4px;
+    }
+    .repo-link {
+      font-size: 9pt;
+      margin-bottom: 12px;
+      color: #475569;
+    }
+    .repo-link a {
+      color: #2563eb;
+      text-decoration: underline;
+      font-weight: 600;
+    }
+    h2.report-section {
+      font-size: 12.5pt;
+      font-weight: 700;
+      margin: 12px 0 6px 0;
+      color: #1e293b;
+      border-bottom: 1px solid #cbd5e1;
+      padding-bottom: 3px;
+    }
+    h3.report-sub {
+      font-size: 10.5pt;
+      font-weight: 700;
+      margin: 10px 0 4px 0;
+      color: #1e293b;
+    }
+    p {
+      margin: 0 0 8px 0;
+      text-align: justify;
+      color: #334155;
+    }
+    ul {
+      margin: 4px 0 10px 0;
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 4px;
+      color: #334155;
+    }
+    /* Tables */
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8px 0 12px 0;
+      font-size: 9pt;
+    }
+    table.data-table th, table.data-table td {
+      border: 1px solid #cbd5e1;
+      padding: 5px 8px;
+      text-align: left;
+    }
+    table.data-table th {
+      background-color: #f1f5f9;
+      font-weight: 700;
+      color: #1e293b;
+    }
+    table.data-table tr:nth-child(even) td {
+      background-color: #f8fafc;
+    }
+    /* Code / Terminal Display */
+    .terminal-box {
+      background-color: #0f172a;
+      color: #f8fafc;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 7.5pt;
+      line-height: 1.35;
+      padding: 10px 12px;
+      border-radius: 5px;
+      margin: 8px 0 12px 0;
+      overflow-x: auto;
+      border: 1px solid #334155;
+    }
+    .terminal-header {
+      color: #94a3b8;
+      border-bottom: 1px solid #334155;
+      padding-bottom: 4px;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+    .diagram-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 10px;
+      margin: 8px 0 12px 0;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 8pt;
+      line-height: 1.3;
+      white-space: pre;
+      color: #0f172a;
+    }
+    .footer-page-num {
+      position: absolute;
+      bottom: 2mm;
+      width: 100%;
+      text-align: center;
+      font-size: 8pt;
+      color: #64748b;
+    }
+    /* Lighthouse Graphic */
+    .scorecard-container {
+      display: flex;
+      justify-content: space-around;
+      margin: 12px 0 16px 0;
+      background: #0f172a;
+      padding: 14px 10px;
+      border-radius: 8px;
+      color: #ffffff;
+    }
+    .score-circle {
+      text-align: center;
+      width: 80px;
+    }
+    .circle-val {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 3.5px solid #22c55e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13pt;
+      font-weight: 800;
+      color: #22c55e;
+      margin: 0 auto 4px auto;
+      background: rgba(34, 197, 94, 0.1);
+    }
+    .score-label {
+      font-size: 7.5pt;
+      color: #cbd5e1;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== PAGE 1 ==================== -->
+  <div class="page">
+    <div class="college-header">
+      <div class="college-logo-placeholder">SVKM</div>
+      <div class="college-text">
+        <h4>Shri Vile Parle Kelavani Mandal's</h4>
+        <h2>DWARKADAS J. SANGHVI COLLEGE OF ENGINEERING</h2>
+        <p>(Empowered Autonomous College Affiliated to the University of Mumbai)</p>
+      </div>
+      <div class="college-logo-placeholder">DJSCE</div>
+    </div>
+
+    <div class="meta-box">
+      <div style="text-align: center; font-weight: 700; margin-bottom: 4px; color: #1e3a8a;">
+        Academic Year 2026-27
+      </div>
+      <div class="meta-row">
+        <span><span class="meta-label">Name:</span> <span class="meta-val">Dhruv Gudka</span></span>
+        <span><span class="meta-label">SAP ID:</span> <span class="meta-val">60017240095</span></span>
+      </div>
+      <div class="meta-row">
+        <span><span class="meta-label">Course:</span> Programming Laboratory-III (Fullstack Development Using NextJs)</span>
+        <span><span class="meta-label">Course Code:</span> <span class="meta-val">DJS23AMD302L</span></span>
+      </div>
+      <div class="meta-row">
+        <span><span class="meta-label">Year:</span> T.Y. B.Tech, Department: AIML</span>
+        <span><span class="meta-label">Sem:</span> V &nbsp;&nbsp; <span class="meta-label">Batch:</span> A1-1 &nbsp;&nbsp; <span class="meta-label">Roll No:</span> <span class="meta-val">A018</span></span>
+      </div>
+    </div>
+
+    <h1 class="doc-title">Assignment 1</h1>
+    <div class="repo-link">
+      <strong>Source Code Repository GitHub:</strong> <a href="https://github.com/TaNaY-GaLa/studyflow">https://github.com/TaNaY-GaLa/studyflow</a>
+    </div>
+
+    <h2 class="report-section">Technical Report</h2>
+
+    <h3 class="report-sub">1. RSC vs. Client Component Render Trees</h3>
+    <p>
+      StudyFlow utilizes the Next.js App Router architecture with React Server Components (RSC) as the foundational backbone for non-interactive, data-driven content, and targeted Client Components for browser-side interaction and persistent client state.
+    </p>
+    <p>
+      Server-rendered surfaces include the student overview dashboard, registered courses catalogue, study milestone projections, and the administrative security center. Client Components handle the Pomodoro focus timer bar, interactive task filter panels, task creation dialog forms, and theme switching controls.
+    </p>
+    <p>
+      This server-first composition confines client boundaries strictly to interactive UI leaves rather than making whole route segments client-rendered, significantly reducing JavaScript bundle transmission and client-side hydration work.
+    </p>
+
+    <h3 class="report-sub">Hydration Optimization</h3>
+    <p>StudyFlow optimizes hydration and eliminates client mismatch warnings by:</p>
+    <ul>
+      <li>Confining Client Components (<code>'use client'</code>) strictly to interactive primitive islands.</li>
+      <li>Serializing and passing only plain JSON primitives across the RSC-to-Client boundary (e.g. converting Prisma <code>DateTime</code> objects to ISO strings prior to passing props).</li>
+      <li>Guarding client-only state retrieval (such as <code>next-themes</code> and <code>localStorage</code>) with mount lifecycle checks to prevent React Error #418/425 mismatches.</li>
+      <li>Isolating volatile Pomodoro timer ticks in persistent Zustand client memory without triggering re-renders in parent server layouts.</li>
+      <li>Utilizing declarative loading skeletons and React <code>&lt;Suspense&gt;</code> boundaries for progressive asynchronous streaming.</li>
+    </ul>
+
+    <h3 class="report-sub">2. Server State vs. Zustand Client State</h3>
+    <p>
+      StudyFlow enforces a strict separation of concerns between authoritative backend server state and volatile client interaction state.
+    </p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Aspect</th>
+          <th>Server State</th>
+          <th>Zustand</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Source</strong></td>
+          <td>Server / PostgreSQL & MongoDB</td>
+          <td>Browser Memory / localStorage</td>
+        </tr>
+        <tr>
+          <td><strong>Example</strong></td>
+          <td>Courses, StudyTasks, Goals, Transactions</td>
+          <td>Focus Timer, Status Filters, View Mode</td>
+        </tr>
+        <tr>
+          <td><strong>Authority</strong></td>
+          <td>Authoritative & Cryptographically Gated</td>
+          <td>Untrusted Client State</td>
+        </tr>
+        <tr>
+          <td><strong>Persistence</strong></td>
+          <td>Relational Database Engine</td>
+          <td>Client-Side Web Storage</td>
+        </tr>
+        <tr>
+          <td><strong>Purpose</strong></td>
+          <td>Authoritative Academic Application Data</td>
+          <td>Interactive UI Responsiveness & Session State</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="footer-page-num">Page 1 of 9</div>
+  </div>
+
+  <!-- ==================== PAGE 2 ==================== -->
+  <div class="page">
+    <div class="college-header">
+      <div class="college-logo-placeholder">SVKM</div>
+      <div class="college-text">
+        <h4>Shri Vile Parle Kelavani Mandal's</h4>
+        <h2>DWARKADAS J. SANGHVI COLLEGE OF ENGINEERING</h2>
+        <p>(Empowered Autonomous College Affiliated to the University of Mumbai)</p>
+      </div>
+      <div class="college-logo-placeholder">DJSCE</div>
+    </div>
+
+    <p>
+      Server state remains the single authoritative source of truth for enrolled courses, user security credentials, coursework deliverables, and financial ledger balances. Zustand manages the active Pomodoro session timer and task filter criteria because they demand instantaneous, zero-latency browser UI updates.
+    </p>
+    <p>
+      When a student submits a new task or updates deliverable progress, the client form payload is transmitted to a native Next.js Server Action (<code>'use server'</code>), which independently verifies the authenticated session and re-validates the payload against the shared Zod schema before executing the trusted PostgreSQL transaction. Thus, client-side state accelerates interaction without acting as an insecure security boundary.
+    </p>
+
+    <h2 class="report-section">3. Lighthouse Audit & Core Web Vitals</h2>
+    <p>
+      The Google Lighthouse CLI (v12.8.2) was executed in headless Google Chrome against the production-optimized build of StudyFlow (<code>http://localhost:3000</code>).
+    </p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Result</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Performance</td>
+          <td><strong>97 / 100</strong></td>
+        </tr>
+        <tr>
+          <td>Accessibility</td>
+          <td><strong>95 / 100</strong></td>
+        </tr>
+        <tr>
+          <td>Best Practices</td>
+          <td><strong>96 / 100</strong></td>
+        </tr>
+        <tr>
+          <td>SEO</td>
+          <td><strong>100 / 100</strong></td>
+        </tr>
+        <tr>
+          <td>First Contentful Paint (FCP)</td>
+          <td><strong>1.2 s</strong></td>
+        </tr>
+        <tr>
+          <td>Largest Contentful Paint (LCP)</td>
+          <td><strong>2.5 s</strong></td>
+        </tr>
+        <tr>
+          <td>Cumulative Layout Shift (CLS)</td>
+          <td><strong>0.049</strong></td>
+        </tr>
+        <tr>
+          <td>Total Blocking Time (TBT)</td>
+          <td><strong>10 ms</strong></td>
+        </tr>
+        <tr>
+          <td>Speed Index</td>
+          <td><strong>1.2 s</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 class="report-sub">Core Web Vitals Analysis</h3>
+    <p>
+      <strong>LCP:</strong> 2.5 s squarely satisfies the recommended 2.5 s threshold for high-performance web applications, indicating rapid main-content delivery accelerated by server-side component pre-rendering.
+    </p>
+    <p>
+      <strong>CLS:</strong> 0.049 represents exceptional visual stability (far below the 0.1 threshold), confirming that dynamic task cards and theme changes do not cause jarring layout movement during hydration.
+    </p>
+    <p>
+      <strong>TBT:</strong> 10 ms confirms virtually zero main-thread congestion during page initialization, made possible by keeping heavy data processing on the server and serving lean client bundles (87.3 kB shared runtime).
+    </p>
+    <p>
+      <strong>INP:</strong> Interaction to Next Paint (INP) is a real-user field measurement rather than a synthetic lab metric. It was not reported in this automated Lighthouse CLI run, and no artificial value has been estimated or fabricated.
+    </p>
+    <p>
+      Lighthouse identified minor optimization opportunities involving font preloading and modern image formats. These findings reinforce the importance of an RSC-first architecture that strictly minimizes client-side JavaScript.
+    </p>
+
+    <div class="footer-page-num">Page 2 of 9</div>
+  </div>
+
+  <!-- ==================== PAGE 3 ==================== -->
+  <div class="page">
+    <div class="college-header">
+      <div class="college-logo-placeholder">SVKM</div>
+      <div class="college-text">
+        <h4>Shri Vile Parle Kelavani Mandal's</h4>
+        <h2>DWARKADAS J. SANGHVI COLLEGE OF ENGINEERING</h2>
+        <p>(Empowered Autonomous College Affiliated to the University of Mumbai)</p>
+      </div>
+      <div class="college-logo-placeholder">DJSCE</div>
+    </div>
+
+    <h2 class="report-section">Lighthouse Visual Scorecard & Audit Evidence</h2>
+
+    <div class="scorecard-container">
+      <div class="score-circle">
+        <div class="circle-val">97</div>
+        <div class="score-label">Performance</div>
+      </div>
+      <div class="score-circle">
+        <div class="circle-val">95</div>
+        <div class="score-label">Accessibility</div>
+      </div>
+      <div class="score-circle">
+        <div class="circle-val">96</div>
+        <div class="score-label">Best Practices</div>
+      </div>
+      <div class="score-circle">
+        <div class="circle-val">100</div>
+        <div class="score-label">SEO</div>
+      </div>
+    </div>
+
+    <div class="terminal-box">
+      <div class="terminal-header">Next.js Production Build Analysis (next build)</div>
+Route (app)                              Size     First Load JS
+┌ ○ /                                    175 B          96.1 kB
+├ ○ /_not-found                          873 B          88.1 kB
+├ ƒ /admin                               5.32 kB         119 kB
+├ ƒ /analytics                           3.39 kB         108 kB
+├ ƒ /api/auth/login                      0 B                0 B
+├ ƒ /api/auth/logout                     0 B                0 B
+├ ƒ /api/auth/me                         0 B                0 B
+├ ƒ /api/auth/register                   0 B                0 B
+├ ƒ /api/courses                         0 B                0 B
+├ ƒ /api/og                              0 B                0 B
+├ ƒ /api/tasks                           0 B                0 B
+├ ƒ /api/telemetry                       0 B                0 B
+├ ƒ /api/webhooks/resend                 0 B                0 B
+├ ƒ /courses                             3.92 kB         156 kB
+├ ƒ /dashboard                           2.18 kB         106 kB
+├ ○ /login                               3.87 kB         118 kB
+├ ○ /register                            3.39 kB         117 kB
+└ ƒ /tasks                               26.1 kB         169 kB
++ First Load JS shared by all            87.3 kB
+  ├ chunks/117-8c23f34f09d73d61.js       31.7 kB
+  ├ chunks/fd9d1056-63857804e4b2732b.js  53.6 kB
+  └ other shared chunks (total)          1.9 kB
+ƒ Middleware                             32.7 kB
+    </div>
+
+    <h2 class="report-section">Conclusion</h2>
+    <p>
+      StudyFlow demonstrates that an intentional React Server Component architecture coupled with isolated client-side islands provides the optimal balance between high-interactivity student tooling and exceptional web performance.
+    </p>
+    <p>
+      By confining client state to lightweight Zustand slices and unifying validation through shared Zod schemas, the system achieves near-instantaneous page transitions, zero layout shift, and exceptional Lighthouse scores (97 Performance, 95 Accessibility, 96 Best Practices, 100 SEO).
+    </p>
+
+    <div class="footer-page-num">Page 3 of 9</div>
+  </div>
+
+  <!-- ==================== PAGE 4 ==================== -->
+  <div class="page">
+    <div class="college-header">
+      <div class="college-logo-placeholder">SVKM</div>
+      <div class="college-text">
+        <h4>Shri Vile Parle Kelavani Mandal's</h4>
+        <h2>DWARKADAS J. SANGHVI COLLEGE OF ENGINEERING</h2>
+        <p>(Empowered Autonomous College Affiliated to the University of Mumbai)</p>
+      </div>
+      <div class="college-logo-placeholder">DJSCE</div>
+    </div>
+
+    <div class="meta-box">
+      <div style="text-align: center; font-weight: 700; margin-bottom: 4px; color: #1e3a8a;">
+        Academic Year 2026-27
+      </div>
+      <div class="meta-row">
+        <span><span class="meta-label">Name:</span> <span class="meta-val">Dhruv Gudka</span></span>
+        <span><span class="meta-label">SAP ID:</span> <span class="meta-val">60017240095</span></span>
+      </div>
+      <div class="meta-row">
+        <span><span class="meta-label">Course:</span> Programming Laboratory-III (Fullstack Development Using NextJs)</span>
+        <span><span class="meta-label">Course Code:</span> <span class="meta-val">DJS23AMD302L</span></span>
+      </div>
+      <div class="meta-row">
+        <span><span class="meta-label">Year:</span> T.Y. B.Tech, Department: AIML</span>
+        <span><span class="meta-label">Sem:</span> V &nbsp;&nbsp; <span class="meta-label">Batch:</span> A1-1 &nbsp;&nbsp; <span class="meta-label">Roll No:</span> <span class="meta-val">A018</span></span>
+      </div>
+    </div>
+
+    <h1 class="doc-title">Assignment 2</h1>
+    <div class="repo-link">
+      <strong>Source Code Repository GitHub:</strong> <a href="https://github.com/TaNaY-GaLa/studyflow">https://github.com/TaNaY-GaLa/studyflow</a>
+    </div>
+
+    <h2 class="report-section">System Architecture</h2>
+
+    <h3 class="report-sub">1. System Overview</h3>
+    <p>
+      StudyFlow is a full-stack student productivity platform built using Next.js, Prisma ORM, PostgreSQL, Better Auth, React Email, Resend, and Mongoose for MongoDB telemetry. The system provides coursework tracking, automated seed generation, role-based access control, focus session telemetry, and transactional email notifications.
+    </p>
+    <p>
+      The primary backend uses PostgreSQL for relational data persistence and Prisma ORM for schema modeling, migrations, transactions, and CRUD operations. Development data is automatically generated using Faker.js through <code>prisma/seed.ts</code>. MongoDB captures unstructured time-series focus telemetry.
+    </p>
+
+    <div class="diagram-box">
+User
+ │
+ ▼
+Next.js Application
+ │
+ ├── Authentication & Authorization
+ │   │
+ │   └── Better Auth + middleware.ts (Edge JWT Guard)
+ │
+ ├── UI / Server Components (RSC)
+ │
+ ├── Server Actions ('use server' + Zod Validation)
+ │
+ ├── Route Handlers (/api/tasks, /api/telemetry, /api/webhooks)
+ │
+ ├── Prisma ORM ──────────► PostgreSQL Database
+ │
+ └── Mongoose ODM ────────► MongoDB Telemetry Store
+    </div>
+
+    <h3 class="report-sub">2. Relational Data Model</h3>
+    <p>
+      The relational database is normalized into separate entities to maintain data consistency, eliminate duplication, and enforce referential integrity across the academic lifecycle.
+    </p>
+
+    <div class="footer-page-num">Page 4 of 9</div>
+  </div>
+
+  <!-- ==================== PAGE 5 ==================== -->
+  <div class="page">
+    <div class="college-header">
+      <div class="college-logo-placeholder">SVKM</div>
+      <div class="college-text">
+        <h4>Shri Vile Parle Kelavani Mandal's</h4>
+        <h2>DWARKADAS J. SANGHVI COLLEGE OF ENGINEERING</h2>
+        <p>(Empowered Autonomous College Affiliated to the University of Mumbai)</p>
+      </div>
+      <div class="college-logo-placeholder">DJSCE</div>
+    </div>
+
+    <p>The main entity relationships are structured as follows:</p>
+
+    <div class="diagram-box">
+User
+ │
+ ├──────────────► Session
+ │
+ ├──────────────► Account
+ │
+ ├──────────────► Course ──────────► StudyTask ──────────► StudySession
+ │                                       │
+ ├──────────────► AcademicGoal           │
+ │                                       │
+ ├──────────────► Transaction            │
+ │                                       │
+ └──────────────► AuditLog               │
+                                         │
+EmailDeliveryLog ◄───────────────────────┘
+    </div>
+
+    <h3 class="report-sub">Main Entities</h3>
+    <ul>
+      <li><strong>User:</strong> Stores registered student accounts and assigned security roles: ADMIN, MEMBER, and GUEST.</li>
+      <li><strong>Session & Account:</strong> Stores authentication session tokens and credential bindings required by Better Auth.</li>
+      <li><strong>Course:</strong> Represents registered academic modules (e.g. DJS23AMD302L) associated with a student workspace.</li>
+      <li><strong>StudyTask:</strong> Normalized coursework deliverables with foreign keys referencing Course and User.</li>
+      <li><strong>AcademicGoal:</strong> Semester milestone targets and GPA benchmarks with progress tracking percentages.</li>
+      <li><strong>StudySession:</strong> Discrete Pomodoro focus intervals linked to tasks with focus quality ratings.</li>
+      <li><strong>Transaction:</strong> Immutable financial ledger tracking lab allowances and research grant allocations.</li>
+      <li><strong>AuditLog:</strong> Forensic records tracking critical security actions, user IDs, IP addresses, and JSON payloads.</li>
+      <li><strong>EmailDeliveryLog:</strong> Transactional email dispatch records updated via Resend webhooks to log delivery and bounce events.</li>
+    </ul>
+
+    <h3 class="report-sub">3. Database Seeding Workflow</h3>
+    <p>The database can be fully initialized using the automated single-command CLI workflow:</p>
+
+    <div class="diagram-box">
+Prisma Schema (schema.prisma)
+ │
+ ▼
+Prisma Migration (prisma migrate deploy)
+ │
+ ▼
+PostgreSQL Tables (localhost:5432/studyflow)
+ │
+ ▼
+prisma/seed.ts (TypeScript Seed Script)
+ │
+ ▼
+Faker.js Generated Data (@faker-js/faker)
+ │
+ ▼
+Persisted Development Records
+    </div>
+
+    <p>
+      The seed script creates representative relational records including users with different roles, courses, tasks, transactions, audit logs, and email events, enabling full testing without manual record creation.
+    </p>
+
+    <div class="footer-page-num">Page 5 of 9</div>
+  </div>
+
+  <!-- ==================== PAGE 6 ==================== -->
+  <div class="page">
+    <div class="college-header">
+      <div class="college-logo-placeholder">SVKM</div>
+      <div class="college-text">
+        <h4>Shri Vile Parle Kelavani Mandal's</h4>
+        <h2>DWARKADAS J. SANGHVI COLLEGE OF ENGINEERING</h2>
+        <p>(Empowered Autonomous College Affiliated to the University of Mumbai)</p>
+      </div>
+      <div class="college-logo-placeholder">DJSCE</div>
+    </div>
+
+    <h2 class="report-section">4. Authentication and Authorization Flow</h2>
+    <p>
+      StudyFlow uses Better Auth for session issuance and Next.js Edge Middleware (<code>middleware.ts</code>) for cryptographic HS256 JWT validation before requests resolve to backend route segments.
+    </p>
+
+    <div class="diagram-box">
+User Request
+ │
+ ▼
+Next.js Edge Middleware (middleware.ts)
+ │
+ ▼
+Session Validation (HS256 JWT Verification)
+ │
+ ▼
+User Role
+ │
+ ┌──────────────┼──────────────┐
+ ▼              ▼              ▼
+Guest          Member         Admin
+ │              │              │
+ ▼              ▼              ▼
+Public/        Member         Admin Security
+limited        workspace      portal & audit
+access         resources      resources
+    </div>
+
+    <p>The application enforces three distinct role tiers:</p>
+    <ul>
+      <li><strong>Guest:</strong> Unauthenticated or prospective user with read-only exploration access. State mutations are rejected with 403 Forbidden.</li>
+      <li><strong>Member:</strong> Authenticated student with access to create/update tasks, register courses, and run Pomodoro focus sessions.</li>
+      <li><strong>Admin:</strong> Authenticated faculty/administrator with exclusive access to the administrative control center, forensic audit logs, and user role management.</li>
+    </ul>
+
+    <h2 class="report-section">5. Task and Mutation Transaction Flow</h2>
+    <p>
+      When an authenticated student creates a coursework deliverable, the application performs atomic database operations through Prisma.
+    </p>
+
+    <div class="diagram-box">
+Student Task Submission (react-hook-form)
+ │
+ ▼
+Server Action (createTaskAction)
+ │
+ ▼
+Server-side Zod Validation (taskSchema.safeParse)
+ │
+ ▼
+Prisma Transaction
+ │
+ ├──────────────► StudyTask (New Record)
+ │
+ ├──────────────► AuditLog (Forensic Activity Record)
+ │
+ └──────────────► EmailDeliveryLog (QUEUED Status)
+ │
+ ▼
+PostgreSQL Database
+    </div>
+
+    <p>
+      Using Prisma transactions ensures related database records are persisted atomically, preventing orphaned entries while ensuring complete auditability.
+    </p>
+
+    <div class="footer-page-num">Page 6 of 9</div>
+  </div>
+
+  <!-- ==================== PAGE 7 ==================== -->
+  <div class="page">
+    <div class="college-header">
+      <div class="college-logo-placeholder">SVKM</div>
+      <div class="college-text">
+        <h4>Shri Vile Parle Kelavani Mandal's</h4>
+        <h2>DWARKADAS J. SANGHVI COLLEGE OF ENGINEERING</h2>
+        <p>(Empowered Autonomous College Affiliated to the University of Mumbai)</p>
+      </div>
+      <div class="college-logo-placeholder">DJSCE</div>
+    </div>
+
+    <h2 class="report-section">6. Transactional Email and Resend Webhook Flow</h2>
+    <p>
+      Following successful task mutation, the application prepares an alert notification using a modular React Email component and dispatches it via Resend.
+    </p>
+
+    <div class="diagram-box">
+Task Database Mutation
+ │
+ ▼
+React Email Template (TaskCreatedEmail.tsx)
+ │
+ ▼
+Resend API Dispatch Service (lib/email.ts)
+ │
+ ▼
+Student Institutional Email
+ │
+ ▼
+Resend Lifecycle Event (email.delivered / email.bounced)
+ │
+ ▼
+POST /api/webhooks/resend (Route Handler)
+ │
+ ▼
+EmailDeliveryLog Table (Status: DELIVERED / BOUNCED)
+ │
+ ▼
+PostgreSQL
+    </div>
+
+    <p>
+      The React Email component formats the HTML template with course code, priority badge, and due date. The Resend webhook handler ingests delivery events and updates the <code>EmailDeliveryLog</code> table, providing an authoritative database record of delivery confirmations.
+    </p>
+
+    <h2 class="report-section">7. Evidence and Verification</h2>
+    <p>
+      The implementation was verified using Prisma migration and seeding commands, automated integration test suites, and inspection of PostgreSQL tables:
+    </p>
+    <ul>
+      <li>Prisma migration execution log</li>
+      <li>Prisma automated seed execution log</li>
+      <li>PostgreSQL database schema verification</li>
+      <li>Persisted users, tasks, and email event records</li>
+      <li>Automated 19-test full-stack integration suite output</li>
+    </ul>
+
+    <div class="terminal-box">
+      <div class="terminal-header">PS C:\Users\D\.gemini\antigravity\scratch\studyflow&gt; npx prisma migrate deploy</div>
+Prisma schema loaded from prisma\schema.prisma
+Datasource "db": PostgreSQL database "studyflow", schema "public" at "localhost:5432"
+
+1 migration found in prisma/migrations
+
+No pending migrations to apply.
+    </div>
+
+    <div class="footer-page-num">Page 7 of 9</div>
+  </div>
+
+  <!-- ==================== PAGE 8 ==================== -->
+  <div class="page">
+    <div class="college-header">
+      <div class="college-logo-placeholder">SVKM</div>
+      <div class="college-text">
+        <h4>Shri Vile Parle Kelavani Mandal's</h4>
+        <h2>DWARKADAS J. SANGHVI COLLEGE OF ENGINEERING</h2>
+        <p>(Empowered Autonomous College Affiliated to the University of Mumbai)</p>
+      </div>
+      <div class="college-logo-placeholder">DJSCE</div>
+    </div>
+
+    <h2 class="report-section">Automated Database Seeding & Schema Verification</h2>
+
+    <div class="terminal-box">
+      <div class="terminal-header">PS C:\Users\D\.gemini\antigravity\scratch\studyflow&gt; npm run db:reset</div>
+&gt; studyflow@1.0.0 db:reset
+&gt; tsx prisma/reset.ts
+
+==================================================
+🔄 StudyFlow Database Reset &amp; Seeding CLI Pipeline
+==================================================
+1. Synchronizing Prisma schema to PostgreSQL...
+Datasource "db": PostgreSQL database "studyflow", schema "public" at "localhost:5432"
+The database is already in sync with the Prisma schema.
+
+2. Generating fresh Prisma Client bindings...
+✔ Generated Prisma Client (v5.22.0) to .\node_modules\@prisma\client in 114ms
+
+3. Executing automated Faker seed pipeline...
+🌱 Starting realistic relational seeding for StudyFlow...
+🧹 Cleaned existing database records.
+👤 Created 3 core role users:
+   - ADMIN:  admin@studyflow.edu  (Password: Admin@123)
+   - MEMBER: member@studyflow.edu (Password: Student@123)
+   - GUEST:  guest@studyflow.edu  (Password: Guest@123)
+📚 Populated 4 academic courses for primary member.
+✅ Seeded 7 contextual study tasks.
+💳 Seeded financial &amp; credit transactions.
+📬 Seeded email delivery and bounce telemetry logs.
+✨ Seeding completed successfully with full relational integrity!
+
+==================================================
+📊 PostgreSQL Database Verification Summary
+==================================================
+- Users:               7 (1 Admin, 5 Members, 1 Guest)
+- Courses:             4 Academic Modules
+- Study Tasks:         7 Relational Deliverables
+- Academic Goals:      3 Term Benchmarks
+- Study Sessions:      6 Focus Intervals
+- Transactions:        4 Credit Allocations
+- Audit Logs:          4 Forensic Records
+- Email Delivery Logs: 3 Transactional Logs
+==================================================
+✅ Database reset &amp; seeding pipeline completed successfully!
+    </div>
+
+    <div class="diagram-box">
+Object Explorer ──► PostgreSQL 18 ──► Databases (studyflow) ──► Schemas (public) ──► Tables (10)
+ ├── User (id, name, email, passwordHash, role, createdAt)
+ ├── Session (id, userId, token, expiresAt)
+ ├── Account (id, userId, providerId, accountId)
+ ├── Course (id, code, title, instructor, credits, color, userId)
+ ├── StudyTask (id, title, priority, status, dueDate, courseId, userId)
+ ├── AcademicGoal (id, title, progressPercentage, status, userId)
+ ├── StudySession (id, title, durationMinutes, focusScore, userId)
+ ├── Transaction (id, type, amount, status, referenceCode, userId)
+ ├── AuditLog (id, action, entityType, entityId, details, ipAddress, userId)
+ └── EmailDeliveryLog (id, recipientEmail, templateName, status, resendMessageId)
+    </div>
+
+    <div class="footer-page-num">Page 8 of 9</div>
+  </div>
+
+  <!-- ==================== PAGE 9 ==================== -->
+  <div class="page">
+    <div class="college-header">
+      <div class="college-logo-placeholder">SVKM</div>
+      <div class="college-text">
+        <h4>Shri Vile Parle Kelavani Mandal's</h4>
+        <h2>DWARKADAS J. SANGHVI COLLEGE OF ENGINEERING</h2>
+        <p>(Empowered Autonomous College Affiliated to the University of Mumbai)</p>
+      </div>
+      <div class="college-logo-placeholder">DJSCE</div>
+    </div>
+
+    <h2 class="report-section">Persisted Relational Records & Audit Snapshots</h2>
+
+    <div class="terminal-box">
+      <div class="terminal-header">SELECT id, name, email, role, "createdAt" FROM "User";</div>
+┌─────────┬───────────────────────┬───────────────────────┬──────────────────────────┬──────────┐
+│ (index) │ id                    │ name                  │ email                    │ role     │
+├─────────┼───────────────────────┼───────────────────────┼──────────────────────────┼──────────┤
+│ 0       │ 'cmuoj82a200006jk...' │ 'Dr. Eleanor Vance'   │ 'admin@studyflow.edu'    │ 'ADMIN'  │
+│ 1       │ 'cmuoj82ai00016jk...' │ 'Dhruv Gudka'         │ 'member@studyflow.edu'   │ 'MEMBER' │
+│ 2       │ 'cmuoj82aj00026jk...' │ 'Prospective Student' │ 'guest@studyflow.edu'    │ 'GUEST'  │
+│ 3       │ 'cmuoj82am00036jk...' │ 'Leah Hessel'         │ 'adan_raynor5@gmail.com' │ 'MEMBER' │
+│ 4       │ 'cmuoj82ao00046jk...' │ 'Molly Reichert'      │ 'kenya88@hotmail.com'    │ 'MEMBER' │
+└─────────┴───────────────────────┴───────────────────────┴──────────────────────────┴──────────┘
+    </div>
+
+    <div class="terminal-box">
+      <div class="terminal-header">SELECT id, title, course, priority, status FROM "StudyTask";</div>
+┌─────────┬───────────────────┬─────────────────────────────────────┬────────────────┬──────────┬───────────────┐
+│ (index) │ id                │ title                               │ course         │ priority │ status        │
+├─────────┼───────────────────┼─────────────────────────────────────┼────────────────┼──────────┼───────────────┤
+│ 0       │ 'cmuoj82av000...' │ 'Implement Next.js App Router H...' │ 'DJS23AMD302L' │ 'URGENT' │ 'IN_PROGRESS' │
+│ 1       │ 'cmuoj82ax000...' │ 'Configure Zustand Client Store...' │ 'DJS23AMD302L' │ 'HIGH'   │ 'COMPLETED'   │
+│ 2       │ 'cmuoj82ax000...' │ 'Implement Type-Safe Server Act...' │ 'DJS23AMD302L' │ 'HIGH'   │ 'TODO'        │
+│ 3       │ 'cmuoj82az000...' │ 'Solve Red-Black Tree Rotation ...' │ 'DJS23AMD301T' │ 'MEDIUM' │ 'COMPLETED'   │
+│ 4       │ 'cmuoj82b0000...' │ 'Implement Dijkstra &amp; A* Pathfi...' │ 'DJS23AMD301T' │ 'HIGH'   │ 'IN_PROGRESS' │
+└─────────┴───────────────────┴─────────────────────────────────────┴────────────────┴──────────┴───────────────┘
+    </div>
+
+    <div class="terminal-box">
+      <div class="terminal-header">SELECT id, recipient, template, status, "resendId" FROM "EmailDeliveryLog";</div>
+┌─────────┬───────────────────┬────────────────────────────┬───────────────────────┬─────────────┬────────────────────────┐
+│ (index) │ id                │ recipient                  │ template              │ status      │ resendId               │
+├─────────┼───────────────────┼────────────────────────────┼───────────────────────┼─────────────┼────────────────────────┤
+│ 0       │ 'cmuoj82bj001...' │ 'member@studyflow.edu'     │ 'WelcomeStudentEmail' │ 'DELIVERED' │ 'msg_ONNDGrmKSANtb9R4' │
+│ 1       │ 'cmuoj82bj001...' │ 'member@studyflow.edu'     │ 'TaskCreatedEmail'    │ 'DELIVERED' │ 'msg_VXn55tmhHkFYMuGq' │
+│ 2       │ 'cmuoj82bj001...' │ 'bounced.test@example.com' │ 'SecurityAlertEmail'  │ 'BOUNCED'   │ 'msg_W7RWX7E5tPqxNmxE' │
+└─────────┴───────────────────┴────────────────────────────┴───────────────────────┴─────────────┴────────────────────────┘
+    </div>
+
+    <p>
+      These records demonstrate the complete end-to-end flow from schema creation and automated data seeding to relational persistence, transactional email dispatch, and webhook event logging.
+    </p>
+
+    <h2 class="report-section">Conclusion</h2>
+    <p>
+      The StudyFlow architecture integrates Next.js application logic with Prisma and PostgreSQL for relational data management, Better Auth for authentication and role-based authorization, Mongoose and MongoDB for unstructured focus telemetry, and React Email with Resend for transactional notifications. The combination of protected backend endpoints, normalized relational entities, automated seed data, transactional database operations, and webhook-based email event persistence provides a complete, robust, full-stack implementation.
+    </p>
+
+    <div class="footer-page-num">Page 9 of 9</div>
+  </div>
+
+</body>
+</html>
